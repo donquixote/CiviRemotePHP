@@ -64,10 +64,10 @@ class Success extends AbstractResult implements \ArrayAccess {
   }
 
   function offsetSet($index, $value) {
-    throw new Exception("This is read-only.");
+    throw new \Exception("This is read-only.");
   }
 
   function offsetUnset($index) {
-    throw new Exception("This is read-only.");
+    throw new \Exception("This is read-only.");
   }
 }

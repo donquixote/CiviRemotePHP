@@ -3,7 +3,7 @@
 namespace CiviCRM\API3;
 use CiviCRM\API3\Result as Result;
 
-class Remote extends AbstractAPI {
+class RemoteAPI extends AbstractAPI {
 
   protected $uri;
   protected $siteKey;
@@ -17,13 +17,13 @@ class Remote extends AbstractAPI {
 
     // Validate
     if (empty($config['server'])) {
-      throw new Exception("Must specify server in config.");
+      throw new \Exception("Must specify server in config.");
     }
-    if (empty($config['key'])) {
-      throw new Exception("Must specify the site key ('key') from your civicrm.settings.php.");
+    if (empty($config['site_key'])) {
+      throw new \Exception("Must specify 'site_key' (CIVICRM_SITE_KEY from your civicrm.settings.php).");
     }
     if (empty($config['api_key'])) {
-      throw new Exception("Must specify the API key for a CiviCRM user.");
+      throw new \Exception("Must specify 'api_key' (api_key from a CiviCRM contact record).");
     }
 
     // Fall back to defaults
@@ -36,7 +36,7 @@ class Remote extends AbstractAPI {
 
     // Set protected properties
     $this->uri = $config['server'] . $config['path'] . '?json=1';
-    $this->siteKey = $config['key'];
+    $this->siteKey = $config['site_key'];
     $this->apiKey = $config['api_key'];
   }
 

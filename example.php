@@ -3,7 +3,7 @@
 // We use this only because we have no native PSR-0 autoloader in this script.
 require_once 'autoload.php';
 
-$api = new CiviCRM\API3\Remote(array(
+$api = new CiviCRM\API3\RemoteAPI(array(
 
   // Drupal root url.
   // This assumes that CiviCRM is installed in sites/all/modules/civicrm.

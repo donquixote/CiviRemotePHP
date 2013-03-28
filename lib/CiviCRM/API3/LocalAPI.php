@@ -3,7 +3,7 @@
 namespace CiviCRM\API3;
 use CiviCRM\API3\Result;
 
-class Remote extends AbstractAPI {
+class LocalAPI extends AbstractAPI {
 
   protected $cfg;
   protected $siteKey;
@@ -47,7 +47,7 @@ class Remote extends AbstractAPI {
    * Result object in case that we return nothing.
    */
   protected function emptyResult($entity, $action, $params) {
-    throw new Exception("This does not happen on Local.");
+    throw new \Exception("This does not happen on Local.");
   }
 
   /**
