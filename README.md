@@ -5,8 +5,7 @@ This is a rewrite / clean-up of the civicrm_api3 class shipped with CiviCRM.
 Might be included in the core one day.
 
 
-Usage: Remote
-================
+## Usage: Remote
 
 Use case:
 You have one server A with CiviCRM, and a server B with some random PHP (but no civi).
@@ -18,8 +17,7 @@ Solution:
 
 
 
-Usage: Local
-===============
+## Usage: Local
 
 Use case:
 You have a regular CiviCRM install.
