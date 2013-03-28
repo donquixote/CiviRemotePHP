@@ -1,13 +1,10 @@
 <?php
 
 namespace CiviCRM\API3;
-use CiviCRM\API3\Result;
 
 class LocalAPI extends AbstractAPI {
 
   protected $cfg;
-  protected $siteKey;
-  protected $apiKey;
 
   /**
    * @param array $config
@@ -30,6 +27,8 @@ class LocalAPI extends AbstractAPI {
 
   /**
    * Helper method for long running programs (eg bots)
+   *
+   * TODO: Does this really belong here?
    */
   function ping() {
     global $_DB_DATAOBJECT;
@@ -41,13 +40,6 @@ class LocalAPI extends AbstractAPI {
         }
       }
     }
-  }
-
-  /**
-   * Result object in case that we return nothing.
-   */
-  protected function emptyResult($entity, $action, $params) {
-    throw new \Exception("This does not happen on Local.");
   }
 
   /**

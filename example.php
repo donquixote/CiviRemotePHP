@@ -16,9 +16,7 @@ $api = new CiviCRM\API3\RemoteAPI(array(
   'api_key' => 'dqx123',
 ));
 
-$result = $api->Contact->Get(array(
-  'id' => 202,
-));
+$result = $api->Contact->Get(202);
 
 // Get value by index, using ArrayAccess magic.
 var_dump($result[0]);

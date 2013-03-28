@@ -1,7 +1,6 @@
 <?php
 
 namespace CiviCRM\API3;
-use CiviCRM\API3\Result as Result;
 
 class RemoteAPI extends AbstractAPI {
 
@@ -41,10 +40,13 @@ class RemoteAPI extends AbstractAPI {
   }
 
   /**
-   * Result object in case that we return nothing.
+   * Wrap the result into an object.
    */
-  protected function emptyResult($entity, $action, $params) {
-    return new Result\RemoteFail();
+  protected function wrapResult($result, $entity, $action, $params) {
+    if (empty($result)) {
+      throw new \Exception("Remote API fail on $entity.$action.");
+    }
+    return parent::wrapResult($result, $entity, $action, $params);
   }
 
   /**

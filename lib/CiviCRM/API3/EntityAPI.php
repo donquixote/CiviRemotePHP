@@ -16,9 +16,6 @@ class EntityAPI {
     if (1 !== count($args)) {
       throw new \Exception('Must be exactly one arg.');
     }
-    if (!is_array($args[0])) {
-      throw new \Exception('Params must be array.');
-    }
     $params = $args[0];
     return $this->api->call($this->entity, $action, $params);
   }

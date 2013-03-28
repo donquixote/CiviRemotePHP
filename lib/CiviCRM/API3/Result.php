@@ -1,16 +1,20 @@
 <?php
 
-namespace CiviCRM\API3\Result;
+namespace CiviCRM\API3;
 
-class Success extends AbstractResult implements \ArrayAccess {
+class Result implements \ArrayAccess {
 
+  protected $result;
   protected $values = array();
   protected $firstValue;
 
   function __construct($result) {
-    parent::__construct($result);
-    if (isset($this->result->values) && is_array($this->result->values)) {
-      $this->values = $this->result->values;
+    if (is_array($result)) {
+      $result = (object)$result;
+    }
+    $this->result = $result;
+    if (isset($result->values) && is_array($result->values)) {
+      $this->values = $result->values;
       foreach ($this->values as $value) {
         $this->firstValue = $value;
         break;
@@ -69,5 +73,35 @@ class Success extends AbstractResult implements \ArrayAccess {
 
   function offsetUnset($index) {
     throw new \Exception("This is read-only.");
+  }
+
+  // Result meta
+  // ---------------------------------------------------------------------------
+
+  function result($key = NULL) {
+    if (empty($key)) {
+      return $this->result;
+    }
+    elseif (isset($this->result->$key)) {
+      return $this->result->$key;
+    }
+  }
+
+  /**
+   * We can't name this isSet() cause that's a reserved word.
+   */
+  function is_set($name) {
+    return (isset($this->result->$name));
+  }
+
+  /**
+   * We could rename this as isError()
+   */
+  function is_error() {
+    return !empty($this->result->is_error);
+  }
+
+  function __toString() {
+    return json_encode($this->result);
   }
 }

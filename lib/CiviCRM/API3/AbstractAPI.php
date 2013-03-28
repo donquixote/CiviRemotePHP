@@ -1,7 +1,6 @@
 <?php
 
 namespace CiviCRM\API3;
-use CiviCRM\API3\Result;
 
 abstract class AbstractAPI {
 
@@ -26,23 +25,25 @@ abstract class AbstractAPI {
 
     $result = $this->apiCall($entity, $action, $params);
 
-    if (empty($result) || !is_object($result)) {
-      // Every implementation (local, remote)
-      // has a different type of error if the result is empty.
-      return $this->emptyResult();
-    }
-    elseif (!empty($result->is_error)) {
-      return new Result\Error($result);
-    }
-    else {
-      return new Result\Success($result);
-    }
+    return $this->wrapResult($result, $entity, $action, $params);
   }
 
   /**
    * Result object in case that we return nothing.
    */
-  abstract protected function emptyResult($entity, $action, $params);
+  protected function wrapResult($result, $entity, $action, $params) {
+    if (empty($result) || !is_object($result)) {
+      // Every implementation (local, remote)
+      // has a different type of error if the result is empty.
+      throw new Exception("Result is empty.");
+    }
+    elseif (!empty($result->is_error)) {
+      throw new Exception("Result has an error.");
+    }
+    else {
+      return new Result($result);
+    }
+  }
 
   /**
    * Perform the actual API call.
