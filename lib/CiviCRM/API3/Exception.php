@@ -28,7 +28,7 @@ class Exception extends \Exception {
     // using int for error code "old way")
     $code = is_numeric($error_code) ? $error_code : 0;
 
-    parent::__construct(ts($message), $code, $previous);
+    parent::__construct(t($message), $code, $previous);
     $this->extraParams = $extraParams + array('error_code' => $error_code);
   }
 
