@@ -45,6 +45,10 @@ class RemoteAPI extends AbstractAPI {
   protected function wrapResult($result, $entity, $action, $params) {
     if (empty($result)) {
       throw new \Exception("Remote API fail on $entity.$action.");
+    } 
+    if ($result->is_error == 1) {
+
+      throw new \CiviCRM\API3\Exception( $result->error_message );
     }
     return parent::wrapResult($result, $entity, $action, $params);
   }
